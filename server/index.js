@@ -2,16 +2,18 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { createTodo, updateTodo } = require("./types");
 const { todo } = require("./db");
+const cors = require("cors");
 
 dotenv.config();
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
 app.post("/todo", async (req, res) => {
   const createPayload = req.body;
-  const parsePayload = createTodo.safeparse(createPayload);
+  const parsePayload = createTodo.safeParse(createPayload);
 
   if (!parsePayload.success) {
     res.status(411).json({
@@ -38,7 +40,7 @@ app.get("/todos", async (req, res) => {
 
 app.put("/completed", async (req, res) => {
   const updatePayload = req.body;
-  const parsepayload = updateTodo.safeparse(updatePayload);
+  const parsepayload = updateTodo.safeParse(updatePayload);
 
   if (!parsepayload.success) {
     res.status(411).json({
