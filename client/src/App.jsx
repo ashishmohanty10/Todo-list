@@ -8,7 +8,8 @@ const App = () => {
 
   useEffect(() => {
     axios.get("http://localhost:3000/todos").then((res) => {
-      setTodos(res.data);
+      console.log(res.data.todos);
+      setTodos(res.data.todos);
     });
   }, []);
 
